@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Resume Builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Home Page -->
+    <div id="homePage" class="page active">
+        <header class="modern-header">
+            <div class="header-container">
+                <div class="brand">
+                    <div class="brand-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14,2 14,8 20,8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                    </div>
+                    <span class="brand-text">ResumeForge</span>
+                </div>
+                <button class="cta-btn" onclick="showBuilder()">Create Resume</button>
+            </div>
+        </header>
+
+        <main class="hero-section">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Build Your Dream Resume
+                        <span class="highlight">In Minutes</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Professional, ATS-friendly resume templates with smart formatting and instant PDF download
+                    </p>
+                    <div class="hero-actions">
+                        <button class="primary-btn" onclick="showBuilder()">
+                            Start Building
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                        <button class="secondary-btn" onclick="showPreview()">View Sample</button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="resume-mockup">
+                        <div class="mockup-header"></div>
+                        <div class="mockup-content">
+                            <div class="mockup-line long"></div>
+                            <div class="mockup-line medium"></div>
+                            <div class="mockup-line short"></div>
+                            <div class="mockup-section">
+                                <div class="mockup-line medium"></div>
+                                <div class="mockup-line long"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Builder Page -->
+    <div id="builderPage" class="page">
+        <header class="builder-header">
+            <div class="header-container">
+                <button class="back-btn" onclick="showHome()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Back
+                </button>
+                <div class="brand">
+                    <div class="brand-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14,2 14,8 20,8"/>
+                        </svg>
+                    </div>
+                    <span class="brand-text">ResumeForge</span>
+                </div>
+                <div class="header-actions">
+                    <button class="preview-btn" onclick="showPreview()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                        Preview
+                    </button>
+                    <button class="download-btn" onclick="downloadPDF()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7,10 12,15 17,10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                        Download
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="builder-layout">
+            <aside class="builder-sidebar">
+                <nav class="section-nav">
+                    <button class="nav-item active" data-section="personal" onclick="switchSection('personal')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        Personal Info
+                    </button>
+                    <button class="nav-item" data-section="summary" onclick="switchSection('summary')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14,2 14,8 20,8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                        </svg>
+                        Summary
+                    </button>
+                    <button class="nav-item" data-section="experience" onclick="switchSection('experience')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                            <line x1="8" y1="21" x2="16" y2="21"/>
+                            <line x1="12" y1="17" x2="12" y2="21"/>
+                        </svg>
+                        Experience
+                    </button>
+                    <button class="nav-item" data-section="education" onclick="switchSection('education')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                        </svg>
+                        Education
+                    </button>
+                    <button class="nav-item" data-section="skills" onclick="switchSection('skills')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        Skills
+                    </button>
+                    <button class="nav-item" data-section="projects" onclick="switchSection('projects')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                        </svg>
+                        Projects
+                    </button>
+                </nav>
+            </aside>
+
+            <main class="builder-main">
+                <!-- Personal Info Section -->
+                <section id="personalSection" class="form-section active">
+                    <div class="section-header">
+                        <h2 class="section-title">Personal Information</h2>
+                        <p class="section-subtitle">Tell us about yourself</p>
+                    </div>
+                    <div class="form-container">
+                        <div class="input-group">
+                            <label for="fullName" class="input-label">Full Name</label>
+                            <input type="text" id="fullName" class="form-input" placeholder="John Doe">
+                        </div>
+                        <div class="input-group">
+                            <label for="jobTitle" class="input-label">Job Title</label>
+                            <input type="text" id="jobTitle" class="form-input" placeholder="Software Engineer">
+                        </div>
+                        <div class="input-group">
+                            <label for="email" class="input-label">Email</label>
+                            <input type="email" id="email" class="form-input" placeholder="john@example.com">
+                        </div>
+                        <div class="input-group">
+                            <label for="phone" class="input-label">Phone</label>
+                            <input type="tel" id="phone" class="form-input" placeholder="+1 (555) 123-4567">
+                        </div>
+                        <div class="input-group">
+                            <label for="location" class="input-label">Location</label>
+                            <input type="text" id="location" class="form-input" placeholder="New York, NY">
+                        </div>
+                        <div class="input-group">
+                            <label for="website" class="input-label">Website</label>
+                            <input type="url" id="website" class="form-input" placeholder="https://johndoe.com">
+                        </div>
+                        <div class="input-group">
+                            <label for="linkedin" class="input-label">LinkedIn</label>
+                            <input type="url" id="linkedin" class="form-input" placeholder="linkedin.com/in/johndoe">
+                        </div>
+                        <div class="input-group">
+                            <label for="github" class="input-label">GitHub</label>
+                            <input type="url" id="github" class="form-input" placeholder="github.com/johndoe">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Summary Section -->
+                <section id="summarySection" class="form-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Professional Summary</h2>
+                        <p class="section-subtitle">Write a compelling summary of your experience</p>
+                    </div>
+                    <div class="form-container">
+                        <div class="input-group full-width">
+                            <label for="summary" class="input-label">Summary</label>
+                            <textarea id="summary" class="form-textarea" rows="6" placeholder="Experienced software engineer with 5+ years of expertise in full-stack development..."></textarea>
+                            <div class="char-counter">
+                                <span id="summaryCount">0</span>/500 characters
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Experience Section -->
+                <section id="experienceSection" class="form-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Work Experience</h2>
+                        <p class="section-subtitle">Add your professional experience</p>
+                        <button class="add-btn" onclick="addExperience()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            Add Experience
+                        </button>
+                    </div>
+                    <div id="experienceList" class="dynamic-list"></div>
+                </section>
+
+                <!-- Education Section -->
+                <section id="educationSection" class="form-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Education</h2>
+                        <p class="section-subtitle">Add your educational background</p>
+                        <button class="add-btn" onclick="addEducation()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            Add Education
+                        </button>
+                    </div>
+                    <div id="educationList" class="dynamic-list"></div>
+                </section>
+
+                <!-- Skills Section -->
+                <section id="skillsSection" class="form-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Skills</h2>
+                        <p class="section-subtitle">Add your technical and soft skills</p>
+                        <button class="add-btn" onclick="addSkill()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            Add Skill
+                        </button>
+                    </div>
+                    <div id="skillsList" class="skills-container"></div>
+                </section>
+
+                <!-- Projects Section -->
+                <section id="projectsSection" class="form-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Projects</h2>
+                        <p class="section-subtitle">Showcase your best work</p>
+                        <button class="add-btn" onclick="addProject()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            Add Project
+                        </button>
+                    </div>
+                    <div id="projectsList" class="dynamic-list"></div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Preview Page -->
+    <div id="previewPage" class="page">
+        <header class="preview-header">
+            <div class="header-container">
+                <button class="back-btn" onclick="showBuilder()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Back to Editor
+                </button>
+                <div class="preview-info">
+                    <span class="template-badge">Modern Template</span>
+                </div>
+                <button class="download-btn" onclick="downloadPDF()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7,10 12,15 17,10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    Download PDF
+                </button>
+            </div>
+        </header>
+
+        <div class="preview-container">
+            <div class="resume-wrapper">
+                <div id="resumePreview" class="resume-document">
+                    <!-- Resume content will be generated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
